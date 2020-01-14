@@ -1,0 +1,151 @@
+import java.util.LinkedList;
+public class HelloWorld{
+
+     public static void main(String []args){
+        System.out.println("Hello World");
+        int h=knight("a1","b2");
+     }
+     
+    static String[] chars={"a","b","c","d","e","f","g"};
+    
+    public static int plus2(int j){
+        if(j+2<9)
+            return j+2;
+        else
+            return -1;
+    }
+    public static int minus2(int j){
+        if(j-2>0)
+            return j-2;
+        else
+            return -1;
+    }
+    public static int plus1(int j){
+        if(j+1<9)
+            return j+1;
+        else
+            return -1;
+    }
+    public static int minus1(int j){
+        if(j-1>0)
+            return j-1;
+        else
+            return -1;
+    }
+    
+    
+    public static int[] m1(int[] s){
+        s[1]=plus2(s[1]);
+        s[0]=plus1(s[0]);
+        return s;
+    }public static int[] m2(int[] s){
+        s[1]=plus2(s[1]);
+        s[0]=minus1(s[0]);
+        return s;
+    }public static int[] m3(int[] s){
+        s[0]=plus2(s[0]);
+        s[1]=plus1(s[1]);
+        return s;
+    }public static int[] m4(int[] s){
+        s[0]=plus2(s[0]);
+        s[1]=minus1(s[1]);
+        return s;
+    }public static int[] m5(int[] s){
+        s[1]=minus2(s[1]);
+        s[0]=plus1(s[0]);
+        return s;
+    }public static int[] m6(int[] s){
+        s[1]=minus2(s[1]);
+        s[0]=minus1(s[0]);
+        return s;
+    }public static int[] m7(int[] s){
+        s[0]=minus2(s[0]);
+        s[1]=minus1(s[1]);
+        return s;
+    }public static int[] m8(int[] s){
+        s[0]=minus2(s[0]);
+        s[1]=plus1(s[1]);
+        return s;
+    }
+    public static int[] mmm(int h,int[] s){
+        switch(h){
+            case 0:
+                return m1(s);
+                break;
+            case 1:
+                return m2(s);
+                break;
+            case 2:
+                return m3(s);
+                break;
+            case 3:
+                return m4(s);
+                break;
+            case 4:
+                return m5(s);
+                break;
+            case 5:
+                return m6(s);
+                break;
+            case 6:
+                return m7(s);
+                break;
+            case 7:
+                return m8(s);
+                break;
+              
+        }
+    }
+    public static LinkedList<Integer[]> allMoves(int[] s,int[] f){
+        LinkedList<Integer[]> m=new LinkedList<>();
+        for(int k=0;k<8;k++){
+            int[] c=mmm(k,s);
+            if(c[0]!=-1 && c[1]!=-1){
+                m.add(c);
+            }
+            if(c[0]==f[0] && c[1]==f[1]){
+                break;
+            }
+        }
+        return m;
+    }
+    
+    
+    public static int  move(int[] s, int[] f,int count){
+        if(count>5)
+            return -1;
+        LinkedList<Integer[]> m=allMoves(s,f);
+        if(m.get(m.size()-1)[0]==f[0] && m.get(m.size()-1)[1]==f[1]){
+            return count;
+        }
+        int res=0;
+        
+        for(int i=0;i<m.size();i++){
+            res=move(m.get(i),f,count+1);
+            if(res!=-1)
+                return res;
+        }
+        return res;
+    }
+
+    public static int knight(String start, String  finish) {
+        String[] s1=start.split("");
+        String[] s2=finish.split("");
+        int[] s=new int[2],f=new int[2];
+        s[1]=Integer.parseInt(s1[1]);
+        f[1]=Integer.parseInt(s2[1]);
+        for(int i=0;i<chars.length;i++){
+          if(s1[0].equals(chars[i])){
+            s[0]=i+1;
+          }
+          if(s2[0].equals(chars[i])){
+            f[0]=i+1;
+          }
+        }
+        System.out.println(s[0]+" "+s[1]);
+        System.out.println(f[0]+" "+f[1]);
+        System.out.println(move(s,f,0));
+        return 1;
+    }
+    
+}
