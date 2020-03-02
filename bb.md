@@ -1,13 +1,25 @@
+import java.util.Random;
+
 public class HelloWorld{
 
      public static void main(String []args){
-        
+         Random r=new Random();
+         int t=6;
+         float[] oo=new float[t],hh=new float[t],ll=new float[t],cc=new float[t];
+         float l=25,h=30;
+        for(int i=0;i<t;i++){
+            oo[i]=r.nextFloat(l,h);
+            hh[i]=r.nextFloat(l,h);
+            ll[i]=r.nextFloat(l,h);
+            cc[i]=r.nextFloat(l,h);
+        }
+        Bands b=new Bands(oo,hh,ll,cc,t);
         
      }
      
 }
 
-public class  Bands{
+class  Bands{
     private float[] o,h,l,c;
     private int yy;
     private int w=3;
